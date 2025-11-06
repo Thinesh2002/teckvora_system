@@ -141,8 +141,7 @@ button[title="Click to copy"], .px-3.py-1 {
   box-shadow: 0 8px 24px rgba(2,6,23,0.55);
 }
 
-/* But since component doesn't render .card element, we'll style direct children */
-.max-w-3xl > * { /* keep spacing tidy */ }
+
 
 /* utility for flex wrap used for tags */
 .flex-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
