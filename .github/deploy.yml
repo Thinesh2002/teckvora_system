@@ -18,7 +18,7 @@ jobs:
         with:
           host: ${{ 45.80.181.3 }}
           username: ${{ root }}
-          key: ${{ secrets.VPS_SSH_KEY }}
+          key: ${{ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEFeIWhCqe+50Ep3Xd0syrwIIxVIlbgTOmfFP9GZw8X5 github-deploy }}
           script: |
             echo "🚀 Starting deployment on VPS..."
 
