@@ -3,7 +3,7 @@ name: 🚀 Deploy Teckvora API to VPS
 on:
   push:
     branches:
-      - main   # Trigger on push to main branch
+      - main   # Run when code is pushed to main branch
 
 jobs:
   deploy:
@@ -16,9 +16,9 @@ jobs:
       - name: ⚙️ Deploy to Hostinger VPS
         uses: appleboy/ssh-action@v1.0.0
         with:
-          host: ${{ 45.80.181.3 }}
-          username: ${{ root }}
-          key: ${{ ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEFeIWhCqe+50Ep3Xd0syrwIIxVIlbgTOmfFP9GZw8X5 github-deploy }}
+          host: ${{ secrets.VPS_HOST }}
+          username: ${{ secrets.VPS_USER }}
+          key: ${{ secrets.VPS_SSH_KEY }}
           script: |
             echo "🚀 Starting deployment on VPS..."
 
