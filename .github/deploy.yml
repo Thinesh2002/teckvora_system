@@ -1,49 +1,42 @@
-name: Deploy to Hostinger VPS
+name: 🚀 Deploy Teckvora API to VPS
 
 on:
   push:
     branches:
-      - main
+      - main   # Trigger on push to main branch
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout repo
+      - name: ✅ Checkout repository
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: ⚙️ Deploy to Hostinger VPS
+        uses: appleboy/ssh-action@v1.0.0
         with:
-          node-version: '18'   # change if needed
-
-      - name: Copy SSH key and set permissions
-        run: |
-          mkdir -p ~/.ssh
-          echo "${{ secrets.VPS_SSH_KEY }}" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
-          ssh-keyscan -H ${{ secrets.VPS_HOST }} >> ~/.ssh/known_hosts
-
-      - name: Deploy to VPS via SSH
-        uses: appleboy/ssh-action@v1
-        with:
-          host: ${{ secrets.VPS_HOST }}
-          username: ${{ secrets.VPS_USER }}
+          host: ${{ 45.80.181.3 }}
+          username: ${{ root }}
           key: ${{ secrets.VPS_SSH_KEY }}
-          port: ${{ secrets.VPS_PORT }}    # optional; set to 22 if used
           script: |
-            set -e
+            echo "🚀 Starting deployment on VPS..."
+
             cd /var/www/YOUR_REPO_NAME || exit 1
-            git fetch --all
+            echo "📦 Pulling latest code..."
+            git fetch origin main
             git reset --hard origin/main
-            # Backend
+
+            echo "📁 Switching to backend folder..."
             cd backend || exit 1
+
+            echo "🧰 Installing dependencies..."
             npm install --production
-            pm2 restart backend || pm2 start server.js --name backend
-            # Frontend
-            cd ../frontend || exit 1
-            npm ci
-            npm run build
-            # move build to webroot (if using /var/www/site)
-            # cp -r dist/* /var/www/site/
-            sudo systemctl reload nginx || sudo systemctl restart nginx
+
+            echo "🔁 Restarting PM2 process..."
+            pm2 restart teckvora-api || pm2 start server.js --name teckvora-api
+
+            echo "🌍 Restarting Nginx..."
+            sudo systemctl restart nginx
+
+            echo "✅ Deployment complete!"
