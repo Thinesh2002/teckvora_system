@@ -1,0 +1,81 @@
+
+#root {
+  width: 100%;
+  height: 100%;
+  font-family: sans-serif;
+
+}
+
+
+
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  justify-content: center;
+  align-items: center;
+}
+
+
+/* Container for page content */
+.page-container {
+  flex: 1;
+  padding: 20px 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Centered 404 style */
+.page-404 {
+  padding: 100px 20px;
+  text-align: center;
+  color: #cc6699;
+}
+
+.page-404 h2 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+  letter-spacing: 1.2px;
+}
+
+/* Links style for navigation (if any) */
+a {
+  color: #bb86fc;
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+a:hover,
+a:focus {
+  color: #3700b3;
+  outline: none;
+}
+
+/* Utility */
+.hidden {
+  display: none !important;
+}
+
+/* Smooth page transitions */
+.fade-enter {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms, transform 300ms;
+}
+
+.fade-exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.fade-exit-active {
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 300ms, transform 300ms;
+}

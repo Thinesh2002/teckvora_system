@@ -1,0 +1,173 @@
+/* keyword.css - for EbayKeywordGenerator component */
+
+/* --- Color variables --- */
+:root{
+  --bg-dark: #0f1720;
+  --card-dark: #111316;
+  --muted-dark: #9aa3ad;
+  --bg-light: #f5f7fa;
+  --card-light: #ffffff;
+  --muted-light: #4b5563;
+  --accent-border: #4b5563; /* neutral border */
+  --accent-muted: #6b7280;
+}
+
+/* --- Reset / helpers --- */
+* { box-sizing: border-box; }
+html,body,#root { height: 100%; margin: 0; font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; }
+
+/* spacing / container */
+.min-h-screen { min-height: 100vh; }
+.p-6 { padding: 24px; }
+.max-w-3xl { max-width: 800px; }
+.max-w-4xl { max-width: 980px; }
+.mx-auto { margin-left: auto; margin-right: auto; }
+
+/* flex & grid helpers used */
+.flex { display: flex; }
+.items-center { align-items: center; }
+.justify-between { justify-content: space-between; }
+.gap-2 { gap: 8px; }
+.gap-3 { gap: 12px; }
+.gap-4 { gap: 16px; }
+.mb-6 { margin-bottom: 24px; }
+.mb-4 { margin-bottom: 16px; }
+.mb-3 { margin-bottom: 12px; }
+.mt-6 { margin-top: 24px; }
+.mt { margin-top: 12px; }
+
+.grid { display: grid; }
+.grid-cols-1 { grid-template-columns: 1fr; }
+.md\\:grid-cols-3 { grid-template-columns: 1fr; } /* will change on media query below */
+.gap-4 { gap: 16px; }
+
+/* text */
+.text-2xl { font-size: 1.25rem; line-height: 1.4; }
+.font-semibold { font-weight: 600; }
+.text-sm { font-size: 0.875rem; }
+.text-xs { font-size: 0.75rem; }
+
+/* simple border / radius */
+.rounded-md { border-radius: 8px; }
+.rounded-full { border-radius: 9999px; }
+.rounded-xl { border-radius: 12px; }
+.rounded-lg { border-radius: 10px; }
+
+/* button look */
+.px-3 { padding-left: 12px; padding-right: 12px; }
+.px-4 { padding-left: 16px; padding-right: 16px; }
+.py-1 { padding-top: 6px; padding-bottom: 6px; }
+.py-2 { padding-top: 8px; padding-bottom: 8px; }
+.p-3 { padding: 12px; }
+
+/* borders */
+.border { border: 1px solid var(--accent-border); }
+.border-gray-600 { border-color: #475569; }
+.border-gray-700 { border-color: #374151; }
+
+/* small shadow used in buttons */
+.shadow-sm { box-shadow: 0 1px 4px rgba(2,6,23,0.45); }
+
+/* --- Theme classes (dark / light) --- */
+.bg-gray-900 { background: var(--bg-dark); }
+.text-gray-100 { color: #e6eef2; }
+.bg-gray-50 { background: var(--bg-light); }
+.text-gray-900 { color: #0f1720; }
+
+.bg-gray-800 { background: rgba(255,255,255,0.03); } /* input bg in dark */
+.text-gray-100 { color: #e6eef2; }
+
+/* input */
+input[type="text"], input[type="search"], textarea {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.02);
+  color: inherit;
+  font-size: 14px;
+  outline: none;
+}
+.bg-gray-50 input[type="text"], .bg-gray-50 input[type="search"], .bg-gray-50 textarea {
+  border: 1px solid #e6e6e9;
+  background: #fff;
+  color: #0f1720;
+}
+
+/* Buttons appearance (generic) */
+button {
+  font-family: inherit;
+  font-size: 14px;
+  background: transparent;
+  color: inherit;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 8px 14px;
+  cursor: pointer;
+}
+button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Specific small button */
+button.small { padding: 6px 10px; font-size: 13px; }
+
+/* Tag buttons (results) */
+button[title="Click to copy"], .px-3.py-1 {
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(0,0,0,0.25);
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+/* light-mode overrides */
+/* We'll use body classes to switch theme; parent component toggles bg/text classes */
+.ekg-light, .bg-gray-50 {
+  --card-bg: var(--card-light);
+}
+.ekg-dark, .bg-gray-900 {
+  --card-bg: var(--card-dark);
+}
+
+/* container card area (for nicer spacing inside .max-w container) */
+.max-w-3xl .card, .max-w-4xl .card {
+  padding: 18px;
+  border-radius: 12px;
+  background: var(--card-dark);
+  box-shadow: 0 8px 24px rgba(2,6,23,0.55);
+}
+
+/* But since component doesn't render .card element, we'll style direct children */
+.max-w-3xl > * { /* keep spacing tidy */ }
+
+/* utility for flex wrap used for tags */
+.flex-wrap { display: flex; flex-wrap: wrap; gap: 8px; }
+
+/* small muted text */
+.text-gray-400 { color: rgba(255,255,255,0.45); }
+.text-gray-400.light { color: rgba(17,24,39,0.6); }
+
+/* responsive grid: convert md:grid-cols-3 to 3 columns on wider screens */
+@media (min-width: 768px) {
+  .md\\:grid-cols-3 { grid-template-columns: 2fr 1fr; }
+}
+
+/* final polish for layout used in component structure */
+.max-w-3xl.mx-auto { width: 100%; }
+.max-w-4xl.mx-auto { width: 100%; }
+
+/* helpful small tweaks for the component structure */
+div > .mb-3.text-sm { margin-bottom: 12px; font-size: 0.9rem; color: var(--muted-dark); }
+
+/* fallback: ensure links / focus states visible */
+button:focus, input:focus { box-shadow: 0 0 0 3px rgba(59,130,246,0.12); outline: none; }
+
+/* Mobile spacing adjustments */
+@media (max-width: 640px) {
+  .p-6 { padding: 14px; }
+  .text-2xl { font-size: 1.1rem; }
+}
