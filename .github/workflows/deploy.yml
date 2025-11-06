@@ -1,4 +1,4 @@
-name: 🚀 Deploy Teckvora API to VPS
+name: 🚀 Deploy Teckvora System (API + Frontend)
 
 on:
   push:
@@ -13,28 +13,32 @@ jobs:
       - name: ✅ Checkout repository
         uses: actions/checkout@v3
 
-      - name: ⚙️ Deploy to Hostinger VPS
+      - name: ⚙️ Deploy to VPS
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_SSH_KEY }}
           script: |
-            echo "🚀 Starting deployment on VPS..."
+            echo "🚀 Starting deployment..."
 
-            cd /var/www/YOUR_REPO_NAME || exit 1
+            cd /var/www/teckvora_system || exit 1
+
             echo "📦 Pulling latest code..."
             git fetch origin main
             git reset --hard origin/main
 
-            echo "📁 Switching to backend folder..."
+            # ===== BACKEND =====
             cd backend || exit 1
-
-            echo "🧰 Installing dependencies..."
+            echo "🧰 Installing backend deps..."
             npm install --production
-
-            echo "🔁 Restarting PM2 process..."
             pm2 restart teckvora-api || pm2 start server.js --name teckvora-api
+
+            # ===== FRONTEND =====
+            cd ../frontend || exit 1
+            echo "🧱 Building frontend..."
+            npm install
+            npm run build
 
             echo "🌍 Restarting Nginx..."
             sudo systemctl restart nginx
