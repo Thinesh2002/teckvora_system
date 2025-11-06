@@ -37,7 +37,7 @@ Key Features: ${form.keyFeatures}
     setLoading(true);
 
     try {
-      const res = await API.post("/ai/title", {
+      const res = await API.post("/ai/generate-title", {
         name: generatePrompt(),
         market: "lk", // fixed for Daraz Sri Lanka
       });
