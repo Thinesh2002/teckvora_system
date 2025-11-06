@@ -9,31 +9,11 @@ import aiRoutes from "./routes/ai/ai.js";
 dotenv.config();
 const app = express();
 
-connectDB();
 
-// ✅ CORS setup
-const allowedOrigins = [
-  "https://system.teckvora.com", // your frontend domain
-  "http://localhost:5173"        // for local dev (optional)
-];
-
-app.use(cors({
-  origin: function (origin, callback) {
-    if (!origin) return callback(null, true); // allow curl, mobile, etc.
-    if (allowedOrigins.indexOf(origin) === -1) {
-      const msg = `CORS policy does not allow access from origin ${origin}`;
-      return callback(new Error(msg), false);
-    }
-    return callback(null, true);
-  },
-  credentials: true,
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-  allowedHeaders: ["Content-Type", "Authorization"]
-}));
-
-app.options("*", cors());
+connectDB(); 
 
 // Middleware
+app.use(cors());
 app.use(express.json());
 
 // Routes
